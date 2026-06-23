@@ -318,9 +318,9 @@ function GraphCard() {
 
 function BusinessModel() {
   const items = [
-    ["Team", "$20", "per user / month", "Source ingest, auto wiki, graph, search, daily brief."],
-    ["Workspace", "$299", "per workspace / month", "Shared company memory, Notion + Slack, scheduled agents."],
-    ["Enterprise", "$2k+", "per month", "SSO, admin controls, private connectors, custom retention."],
+    ["Team", "$20", "per user / month", "For 1-10 users. Source ingest, auto wiki, graph, search, daily brief."],
+    ["Workspace", "$299", "per workspace / month", "For up to 25 users. Shared memory, Notion + Slack, scheduled agents."],
+    ["Enterprise", "$2k+", "per month", "For 25+ users. SSO, admin controls, private connectors, custom retention."],
   ];
 
   return (
