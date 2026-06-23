@@ -52,6 +52,114 @@ const painQuotes = [
   },
 ];
 
+const stopWords = new Set([
+  "www",
+  "com",
+  "blog",
+  "news",
+  "article",
+  "articles",
+  "post",
+  "posts",
+  "the",
+  "and",
+  "for",
+  "with",
+  "from",
+  "about",
+  "into",
+  "your",
+  "our",
+]);
+
+function titleCase(value) {
+  return value
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => {
+      if (word === "ai") return "AI";
+      return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+    })
+    .join(" ");
+}
+
+function getUrlParts(rawUrl) {
+  try {
+    const parsed = new URL(rawUrl.includes("://") ? rawUrl : `https://${rawUrl}`);
+    const words = `${parsed.hostname} ${parsed.pathname}`
+      .toLowerCase()
+      .replace(/['’]/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .split(" ")
+      .filter((word) => word.length > 2 && !stopWords.has(word));
+
+    return {
+      host: parsed.hostname.replace(/^www\./, ""),
+      source: `${parsed.hostname.replace(/^www\./, "")}${parsed.pathname}`.replace(/\/$/, ""),
+      words: [...new Set(words)],
+    };
+  } catch {
+    const words = rawUrl
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .split(" ")
+      .filter((word) => word.length > 2 && !stopWords.has(word));
+
+    return { host: "source", source: rawUrl, words: [...new Set(words)] };
+  }
+}
+
+function inferSourceIntelligence(rawUrl) {
+  const { host, source, words } = getUrlParts(rawUrl);
+  const hasFathersDay = words.includes("fathers") && words.includes("day");
+  const brand = titleCase(host.split(".")[0] || "Company");
+
+  if (hasFathersDay) {
+    return {
+      source,
+      sourceTitle: "Father's Day cookie campaign",
+      wikiPage: {
+        title: "Father's Day Cookie Campaign Brief",
+        updated: "Generated now",
+        summary:
+          "Extracted: Father's Day, gifting, seasonal demand, limited-time cookies, and family purchase intent. Solomon linked the campaign to Crumbl's seasonal demand map and queued adjacent holiday campaigns for comparison.",
+        links: ["Father's Day", "Gifting", "Seasonal demand", "Limited-time cookies", "Family purchase intent"],
+        topic: "Father's Day cookie campaign",
+        nextSource: "Mother's Day and Valentine's Day cookie campaigns",
+      },
+      brief: [
+        "Compare Father's Day against Mother's Day and Valentine's Day cookie campaigns.",
+        "Find 3 sources on seasonal gifting demand and limited-time menu performance.",
+        "Link this campaign to Crumbl's holiday calendar and store-traffic notes.",
+      ],
+    };
+  }
+
+  const conceptWords = words.slice(0, 5);
+  const topic = titleCase(conceptWords.slice(0, 4).join(" ") || brand);
+  const concepts = conceptWords.length
+    ? conceptWords.map((word) => titleCase(word))
+    : ["Source capture", "Entity extraction", "Company memory"];
+
+  return {
+    source,
+    sourceTitle: `${topic} source`,
+    wikiPage: {
+      title: `${topic} Intelligence Brief`,
+      updated: "Generated now",
+      summary: `Extracted: ${concepts.join(", ")}. Solomon saved the raw source from ${host}, created a reusable wiki brief, connected it to the knowledge graph, and added it to agent-ready context.`,
+      links: [...concepts.slice(0, 4), "Next-source recommendation"],
+      topic,
+      nextSource: `supporting sources on ${topic}`,
+    },
+    brief: [
+      `Find 3 supporting sources on ${topic} before tomorrow's review.`,
+      `Compare ${topic} against adjacent customer, product, or market signals.`,
+      `Link this source to the ${brand} wiki page and agent context.`,
+    ],
+  };
+}
+
 function Logo() {
   return (
     <div className="logo" aria-label="Solomon">
@@ -303,33 +411,37 @@ function Integrations() {
 function Dashboard() {
   const [sources, setSources] = useState(rawSources);
   const [query, setQuery] = useState("What do we know about Crumbl?");
-  const [url, setUrl] = useState("https://example.com/crumbl-franchise-breakdown");
-  const [selected, setSelected] = useState(wikiPages[0]);
+  const [url, setUrl] = useState("https://crumblcookies.com/blog/fathers-day-cookies");
+  const [selected, setSelected] = useState({
+    ...wikiPages[0],
+    topic: "Crumbl Cookies Market Map",
+    nextSource: "franchise churn data",
+  });
+  const [briefItems, setBriefItems] = useState(recommendations);
   const [activePanel, setActivePanel] = useState("daily");
 
   const generatedAnswer = useMemo(() => {
     if (!query.trim()) return "Ask Solomon anything about your company memory.";
-    return "Solomon found 4 linked sources. Crumbl research connects franchise velocity, menu rotation, local demand, and onboarding gaps. Best next source: franchise churn data.";
-  }, [query]);
+    return `Solomon found a source-backed brief on ${selected.topic}. It connects ${selected.links
+      .slice(0, 3)
+      .join(", ")}. Best next source: ${selected.nextSource}.`;
+  }, [query, selected]);
 
   function ingestSource() {
+    const intelligence = inferSourceIntelligence(url);
     const next = {
       id: sources.length + 1,
       type: "URL",
-      title: "New source captured from phone/web",
-      source: url.replace("https://", ""),
+      title: intelligence.sourceTitle,
+      source: intelligence.source,
       status: "Wiki generated",
       time: "now",
-      concepts: ["source capture", "entity extraction", "agent context"],
+      concepts: intelligence.wikiPage.links,
     };
     setSources([next, ...sources]);
-    setSelected({
-      title: "New Source Intelligence Brief",
-      updated: "Generated now",
-      summary:
-        "Solomon saved the raw page, extracted entities and concepts, linked it to existing wiki pages, and added it to the agent context layer.",
-      links: ["Source capture", "Entity extraction", "Daily recommendations"],
-    });
+    setSelected(intelligence.wikiPage);
+    setBriefItems(intelligence.brief);
+    setActivePanel("wiki");
   }
 
   function openPanel(panelId) {
@@ -427,7 +539,7 @@ function Dashboard() {
               <Sparkles size={15} />
               Tomorrow's brief
             </div>
-            {recommendations.map((item) => (
+            {briefItems.map((item) => (
               <div className="briefItem" key={item}>
                 <Check size={15} />
                 <span>{item}</span>
