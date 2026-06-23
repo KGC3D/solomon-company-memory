@@ -194,8 +194,8 @@ function Hero({ onDemo }) {
       <div className="heroCopy">
         <h1>Limitless Company Memory</h1>
         <p>
-          Paste a link. Connect Notion. Solomon turns raw sources into a wiki,
-          graph, search layer, and daily brief.
+          Solomon captures company knowledge from links, Notion, Slack, GitHub,
+          and phones, then turns it into a searchable wiki, graph, and daily brief.
         </p>
         <div className="heroActions">
           <button className="primaryBtn" onClick={onDemo}>
