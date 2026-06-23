@@ -408,16 +408,36 @@ a {
 }
 
 .businessBand {
-  border-block: 1px solid var(--line);
+  align-items: stretch;
   display: grid;
-  gap: 1px;
+  gap: 12px;
   grid-template-columns: repeat(3, 1fr);
-  margin: 10px 48px 0;
-  overflow: hidden;
+  padding: 0 48px 86px;
+}
+
+.pricingHeader {
+  grid-column: 1 / -1;
+  max-width: 760px;
+}
+
+.pricingHeader span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.pricingHeader h2 {
+  color: var(--ink);
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.02;
+  margin: 10px 0 14px;
 }
 
 .businessItem {
   background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   padding: 26px;
 }
 
@@ -428,12 +448,29 @@ a {
   text-transform: uppercase;
 }
 
+.businessItem strong {
+  color: var(--ink);
+  display: block;
+  font-size: 48px;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-top: 14px;
+}
+
+.businessItem small {
+  color: var(--muted);
+  display: block;
+  font-size: 14px;
+  font-weight: 750;
+  margin-top: 6px;
+}
+
 .businessItem p {
   color: #463d2a;
-  font-size: 17px;
-  font-weight: 680;
+  font-size: 15px;
+  font-weight: 650;
   line-height: 1.45;
-  margin: 10px 0 0;
+  margin: 18px 0 0;
 }
 
 .workflowExplainer {
@@ -805,7 +842,7 @@ a {
 
   .businessBand {
     grid-template-columns: 1fr;
-    margin-inline: 22px;
+    padding-inline: 22px;
   }
 
   .workflowExplainer {

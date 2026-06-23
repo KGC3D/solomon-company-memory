@@ -210,16 +210,22 @@ function GraphCard() {
 
 function BusinessModel() {
   const items = [
-    ["Wedge", "Replace manual Obsidian/Notion upkeep for teams."],
-    ["Model", "$20/user/month, $299 workspace, $2k+ enterprise."],
-    ["Moat", "Source graph + daily agents + connectors = company memory lock-in."],
+    ["Team", "$20", "per user / month", "Source ingest, auto wiki, graph, search, daily brief."],
+    ["Workspace", "$299", "per workspace / month", "Shared company memory, Notion + Slack, scheduled agents."],
+    ["Enterprise", "$2k+", "per month", "SSO, admin controls, private connectors, custom retention."],
   ];
 
   return (
     <section className="businessBand" id="pricing">
-      {items.map(([label, text]) => (
+      <div className="pricingHeader">
+        <span>Pricing</span>
+        <h2>Simple company-memory pricing.</h2>
+      </div>
+      {items.map(([label, price, cadence, text]) => (
         <div className="businessItem" key={label}>
           <span>{label}</span>
+          <strong>{price}</strong>
+          <small>{cadence}</small>
           <p>{text}</p>
         </div>
       ))}
@@ -449,9 +455,9 @@ export default function App() {
       <Header />
       <Hero onDemo={scrollToDemo} />
       <PainQuotes />
-      <BusinessModel />
       <WorkflowExplainer />
       <Integrations />
+      <BusinessModel />
       <Dashboard />
     </>
   );
