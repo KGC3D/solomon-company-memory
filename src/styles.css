@@ -610,6 +610,67 @@ a {
   width: 28px;
 }
 
+.marketOpportunity {
+  background: #242018;
+  color: #fff;
+  margin: 0 48px 86px;
+  padding: 42px;
+}
+
+.marketOpportunity > span {
+  color: #f0ca8a;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.marketOpportunity h2 {
+  color: #fff;
+  font-size: clamp(38px, 5.4vw, 82px);
+  letter-spacing: 0;
+  line-height: 0.98;
+  margin: 12px 0 0;
+  max-width: 1100px;
+}
+
+.marketOpportunity p {
+  color: #d9cfb8;
+  font-size: 18px;
+  line-height: 1.45;
+  margin: 22px 0 0;
+  max-width: 790px;
+}
+
+.marketStats {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 30px;
+}
+
+.marketStats div {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(240, 202, 138, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.marketStats strong {
+  color: #f0ca8a;
+  display: block;
+  font-size: 42px;
+  line-height: 1;
+}
+
+.marketStats small {
+  color: #efe6d4;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 10px;
+}
+
 .dashboard {
   background: #1e1b14;
   color: #f4efe3;
@@ -857,6 +918,15 @@ a {
 
   .workflowSteps,
   .killerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .marketOpportunity {
+    margin-inline: 22px;
+    padding: 28px;
+  }
+
+  .marketStats {
     grid-template-columns: 1fr;
   }
 
