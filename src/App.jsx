@@ -227,6 +227,47 @@ function BusinessModel() {
   );
 }
 
+function WorkflowExplainer() {
+  const steps = [
+    ["1", "Capture", "URL, phone share, Notion, Slack, GitHub, Linear."],
+    ["2", "Ingest", "Save raw source, extract entities, summarize facts."],
+    ["3", "Build memory", "Create wiki pages and connect the knowledge graph."],
+    ["4", "Use it", "Search, ask agents, and get a daily brief with next sources."],
+  ];
+
+  const killers = [
+    ["Notion stores pages", "Solomon turns sources into connected memory automatically."],
+    ["Obsidian needs manual upkeep", "Solomon ingests, links, and briefs the team every day."],
+    ["Docs are passive", "Solomon is agent-ready context for company decisions."],
+  ];
+
+  return (
+    <section className="workflowExplainer">
+      <div className="workflowHeader">
+        <span>Workflow</span>
+        <h2>Drop in a source. Solomon turns it into usable company memory.</h2>
+      </div>
+      <div className="workflowSteps">
+        {steps.map(([number, title, text]) => (
+          <div className="workflowStep" key={title}>
+            <span>{number}</span>
+            <strong>{title}</strong>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+      <div className="killerGrid">
+        {killers.map(([oldWay, newWay]) => (
+          <div className="killerCard" key={oldWay}>
+            <span>{oldWay}</span>
+            <p>{newWay}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Integrations() {
   return (
     <section className="integrations" id="integrations">
@@ -409,6 +450,7 @@ export default function App() {
       <Hero onDemo={scrollToDemo} />
       <PainQuotes />
       <BusinessModel />
+      <WorkflowExplainer />
       <Integrations />
       <Dashboard />
     </>

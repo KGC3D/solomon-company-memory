@@ -436,6 +436,92 @@ a {
   margin: 10px 0 0;
 }
 
+.workflowExplainer {
+  padding: 78px 48px 20px;
+}
+
+.workflowHeader {
+  max-width: 760px;
+}
+
+.workflowHeader span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.workflowHeader h2 {
+  color: var(--ink);
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.02;
+  margin: 10px 0 0;
+}
+
+.workflowSteps {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 30px;
+}
+
+.workflowStep,
+.killerCard {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-width: 0;
+  padding: 20px;
+}
+
+.workflowStep span {
+  align-items: center;
+  background: #242018;
+  border-radius: 999px;
+  color: #fff;
+  display: flex;
+  font-size: 13px;
+  font-weight: 850;
+  height: 30px;
+  justify-content: center;
+  margin-bottom: 18px;
+  width: 30px;
+}
+
+.workflowStep strong {
+  color: var(--ink);
+  display: block;
+  font-size: 21px;
+  line-height: 1.08;
+}
+
+.workflowStep p,
+.killerCard p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+  margin: 9px 0 0;
+}
+
+.killerGrid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 12px;
+}
+
+.killerCard {
+  border-left: 4px solid var(--accent-2);
+}
+
+.killerCard span {
+  color: #463d2a;
+  display: block;
+  font-size: 13px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .integrations {
   align-items: start;
   display: grid;
@@ -720,6 +806,15 @@ a {
   .businessBand {
     grid-template-columns: 1fr;
     margin-inline: 22px;
+  }
+
+  .workflowExplainer {
+    padding-inline: 22px;
+  }
+
+  .workflowSteps,
+  .killerGrid {
+    grid-template-columns: 1fr;
   }
 
   .dashboard {
