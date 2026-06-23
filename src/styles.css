@@ -322,7 +322,9 @@ a {
 
 .graphCanvas line {
   stroke: #d6b679;
-  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-width: 3px;
+  vector-effect: non-scaling-stroke;
 }
 
 .graphNode {
