@@ -305,6 +305,7 @@ function Dashboard() {
   const [query, setQuery] = useState("What do we know about Crumbl?");
   const [url, setUrl] = useState("https://example.com/crumbl-franchise-breakdown");
   const [selected, setSelected] = useState(wikiPages[0]);
+  const [activePanel, setActivePanel] = useState("daily");
 
   const generatedAnswer = useMemo(() => {
     if (!query.trim()) return "Ask Solomon anything about your company memory.";
@@ -331,23 +332,31 @@ function Dashboard() {
     });
   }
 
+  function openPanel(panelId) {
+    setActivePanel(panelId);
+    document.querySelector(`[data-panel="${panelId}"]`)?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+
   return (
     <section className="dashboard" id="demo">
       <aside className="appSidebar">
         <Logo />
-        <button className="sideActive">
+        <button className={activePanel === "daily" ? "sideActive" : ""} onClick={() => openPanel("daily")}>
           <Sparkles size={16} />
           Daily agent
         </button>
-        <button>
+        <button className={activePanel === "raw" ? "sideActive" : ""} onClick={() => openPanel("raw")}>
           <Link size={16} />
           Raw sources
         </button>
-        <button>
+        <button className={activePanel === "wiki" ? "sideActive" : ""} onClick={() => openPanel("wiki")}>
           <BookOpenText size={16} />
           Wiki
         </button>
-        <button>
+        <button className={activePanel === "graph" ? "sideActive" : ""} onClick={() => openPanel("graph")}>
           <GitBranch size={16} />
           Graph
         </button>
@@ -372,7 +381,7 @@ function Dashboard() {
         </div>
 
         <div className="workspaceGrid">
-          <section className="appPanel rawList">
+          <section className="appPanel rawList" data-panel="raw">
             <div className="panelTitle">
               <Link size={15} />
               Raw folder
@@ -386,7 +395,7 @@ function Dashboard() {
             ))}
           </section>
 
-          <section className="appPanel wikiEditor">
+          <section className="appPanel wikiEditor" data-panel="wiki">
             <div className="panelTitle">
               <BookOpenText size={15} />
               Wiki page
@@ -413,7 +422,7 @@ function Dashboard() {
             <p>{generatedAnswer}</p>
           </section>
 
-          <section className="appPanel briefPanel">
+          <section className="appPanel briefPanel" data-panel="daily">
             <div className="panelTitle">
               <Sparkles size={15} />
               Tomorrow's brief
@@ -438,7 +447,9 @@ function Dashboard() {
             </div>
           </section>
 
-          <GraphCard />
+          <div data-panel="graph">
+            <GraphCard />
+          </div>
         </div>
       </main>
     </section>

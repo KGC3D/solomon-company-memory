@@ -736,6 +736,10 @@ a {
   color: var(--ink);
 }
 
+.workspaceGrid [data-panel="graph"] {
+  min-width: 0;
+}
+
 .workspaceGrid .graphPanel {
   grid-column: span 1;
 }
