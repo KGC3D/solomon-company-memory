@@ -171,6 +171,11 @@ function PainQuotes() {
 }
 
 function GraphCard() {
+  const centerNode = graphNodes.find((node) => node.size === "large");
+  const graphEdges = graphNodes
+    .filter((node) => node.label !== centerNode?.label)
+    .map((node) => ({ from: centerNode, to: node }));
+
   return (
     <div className="previewPanel graphPanel">
       <div className="panelTitle">
@@ -178,12 +183,16 @@ function GraphCard() {
         Knowledge graph
       </div>
       <div className="graphCanvas">
-        <svg viewBox="0 0 100 100" aria-hidden="true">
-          <line x1="46" y1="48" x2="31" y2="28" />
-          <line x1="46" y1="48" x2="63" y2="24" />
-          <line x1="46" y1="48" x2="73" y2="54" />
-          <line x1="46" y1="48" x2="48" y2="74" />
-          <line x1="46" y1="48" x2="22" y2="67" />
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {graphEdges.map(({ from, to }) => (
+            <line
+              x1={from.x}
+              y1={from.y}
+              x2={to.x}
+              y2={to.y}
+              key={`${from.label}-${to.label}`}
+            />
+          ))}
         </svg>
         {graphNodes.map((node) => (
           <span
