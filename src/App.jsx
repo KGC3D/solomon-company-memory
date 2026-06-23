@@ -417,20 +417,6 @@ function MarketOpportunity() {
         Solomon starts in knowledge management and expands into enterprise
         collaboration as the memory layer for agents, teams, and workflows.
       </p>
-      <div className="marketStats">
-        <div>
-          <strong>$20B</strong>
-          <small>knowledge management software, 2024</small>
-        </div>
-        <div>
-          <strong>$62B</strong>
-          <small>projected knowledge management market by 2033</small>
-        </div>
-        <div>
-          <strong>$73B</strong>
-          <small>enterprise collaboration market, 2026 estimate</small>
-        </div>
-      </div>
     </section>
   );
 }

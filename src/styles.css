@@ -641,36 +641,6 @@ a {
   max-width: 790px;
 }
 
-.marketStats {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 30px;
-}
-
-.marketStats div {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(240, 202, 138, 0.2);
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.marketStats strong {
-  color: #f0ca8a;
-  display: block;
-  font-size: 42px;
-  line-height: 1;
-}
-
-.marketStats small {
-  color: #efe6d4;
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-  margin-top: 10px;
-}
-
 .dashboard {
   background: #1e1b14;
   color: #f4efe3;
@@ -924,10 +894,6 @@ a {
   .marketOpportunity {
     margin-inline: 22px;
     padding: 28px;
-  }
-
-  .marketStats {
-    grid-template-columns: 1fr;
   }
 
   .dashboard {
